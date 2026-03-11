@@ -1,0 +1,52 @@
+import { useMemo } from 'react';
+import { Gauge } from '@mui/x-charts/Gauge';
+import type { GaugeChartProps } from './types';
+import { toGaugeProps } from './transforms/to-gauge-props';
+
+export function GaugeChart(props: GaugeChartProps): React.ReactElement {
+  const { value, min = 0, max = 100, height = 200, title, ...rest } = props;
+
+  const muiProps = useMemo(
+    () => toGaugeProps({ value, min, max, ...rest }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [value, min, max, rest.arc, rest.color, rest.formatValue, rest.animate]
+  );
+
+  const clampedValue = muiProps.value;
+
+  return (
+    <div
+      role="meter"
+      aria-label={title ?? 'Gauge chart'}
+      aria-valuenow={clampedValue !== null ? clampedValue : undefined}
+      aria-valuemin={min}
+      aria-valuemax={max}
+    >
+      {clampedValue === null ? (
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height,
+            fontSize: '1.5rem',
+            color: 'inherit',
+          }}
+        >
+          --
+        </div>
+      ) : (
+        <Gauge
+          height={height}
+          value={clampedValue}
+          valueMin={muiProps.valueMin}
+          valueMax={muiProps.valueMax}
+          startAngle={muiProps.startAngle}
+          endAngle={muiProps.endAngle}
+          text={muiProps.text}
+          {...(muiProps.sx !== undefined && { sx: muiProps.sx })}
+        />
+      )}
+    </div>
+  );
+}
