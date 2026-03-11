@@ -26,28 +26,29 @@
     "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {
-    "react": "^18 || ^19",
-    "react-dom": "^18 || ^19",
+    "@emotion/react": "^11",
+    "@emotion/styled": "^11",
     "@mui/material": "^7",
     "@mui/x-charts": "^7",
-    "@emotion/react": "^11",
-    "@emotion/styled": "^11"
+    "react": "^18 || ^19",
+    "react-dom": "^18 || ^19"
   },
   "devDependencies": {
-    "@testing-library/react": "^16",
+    "@emotion/react": "^11",
+    "@emotion/styled": "^11",
+    "@mui/material": "^7",
+    "@mui/x-charts": "^7",
     "@testing-library/jest-dom": "^6",
+    "@testing-library/react": "^16",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "@vitejs/plugin-react": "^4",
-    "@mui/material": "^7",
-    "@mui/x-charts": "^7",
-    "@emotion/react": "^11",
-    "@emotion/styled": "^11",
+    "@vitest/coverage-v8": "^2",
+    "jsdom": "^27.0.1",
     "react": "^18",
     "react-dom": "^18",
     "tsup": "^8",
     "typescript": "^5",
-    "vitest": "^2",
-    "@vitest/coverage-v8": "^2"
+    "vitest": "^2"
   }
 }
