@@ -16,9 +16,9 @@ export function validateGaugeData({
     return { valid: true };
   }
 
-  // NaN 非法
-  if (typeof value === 'number' && isNaN(value)) {
-    return { valid: false, reason: `Gauge value is NaN` };
+  // NaN / Infinity 非法（與 validateSeriesData 行為一致）
+  if (typeof value === 'number' && (isNaN(value) || !isFinite(value))) {
+    return { valid: false, reason: `Gauge value is invalid: ${value}` };
   }
 
   // min >= max 無效範圍

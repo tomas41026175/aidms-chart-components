@@ -43,4 +43,11 @@ describe('BarChart', () => {
     );
     expect(screen.getByText(/Usage/)).toBeTruthy();
   });
+
+  it('horizontal layout 正常渲染 SVG', () => {
+    const { container } = render(
+      <BarChart {...validProps} layout="horizontal" />
+    );
+    expect(container.querySelector('svg')).toBeTruthy();
+  });
 });

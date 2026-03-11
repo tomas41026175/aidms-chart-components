@@ -62,6 +62,25 @@ describe('toGaugeProps', () => {
   // --- formatValue ---
 
   describe('formatValue', () => {
+    it('未傳入時預設格式為 "${v}%"', () => {
+      const result = toGaugeProps({ value: 73 });
+      expect(result.text({ value: 73 })).toBe('73%');
+    });
+
+    it('null value -> text 回傳 "--"（載入中狀態）', () => {
+      const result = toGaugeProps({ value: null });
+      expect(result.text({ value: null })).toBe('--');
+    });
+
+    it('自訂 formatValue 被使用', () => {
+      const result = toGaugeProps({ value: 50, formatValue: (v) => `${v} °C` });
+      expect(result.text({ value: 50 })).toBe('50 °C');
+    });
+  });
+
+  // --- animation ---
+
+  describe('animation', () => {
     it('animate: false -> skipAnimation: true', () => {
       const result = toGaugeProps({ value: 50, animate: false });
       expect(result.skipAnimation).toBe(true);

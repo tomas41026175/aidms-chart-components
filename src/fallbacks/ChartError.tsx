@@ -6,7 +6,7 @@ interface ChartErrorProps {
   height?: number;
 }
 
-export function ChartError({ reason, height = 300 }: ChartErrorProps): React.ReactElement {
+export function ChartError({ reason, height = 300 }: ChartErrorProps): JSX.Element {
   return (
     <Box
       role="alert"

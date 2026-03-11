@@ -1,3 +1,4 @@
+import { gaugeClasses } from '@mui/x-charts/Gauge';
 import type { GaugeChartProps } from '../types';
 
 const ARC_MAP = {
@@ -22,7 +23,7 @@ function clamp(value: number, min: number, max: number): number {
 
 function buildSx(color: string): Record<string, unknown> {
   return {
-    [`& .MuiGauge-valueArc`]: { fill: color },
+    [`& .${gaugeClasses.valueArc}`]: { fill: color },
   };
 }
 

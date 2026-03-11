@@ -6,9 +6,9 @@ interface ChartSkeletonProps {
   title?: string;
 }
 
-export function ChartSkeleton({ height = 300, title }: ChartSkeletonProps): React.ReactElement {
+export function ChartSkeleton({ height = 300, title }: ChartSkeletonProps): JSX.Element {
   return (
-    <Box role="progressbar" aria-label={title ? `Loading ${title}` : 'Loading chart'}>
+    <Box role="progressbar" aria-busy="true" aria-label={title ? `Loading ${title}` : 'Loading chart'}>
       <Skeleton variant="rectangular" width="100%" height={height} />
     </Box>
   );

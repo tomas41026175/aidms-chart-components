@@ -19,4 +19,9 @@ describe('validateGaugeData', () => {
     const result = validateGaugeData({ value: NaN, min: 0, max: 100 });
     expect(result.valid).toBe(false);
   });
+
+  it('Infinity value -> invalid（與 validateSeriesData 行為一致）', () => {
+    const result = validateGaugeData({ value: Infinity, min: 0, max: 100 });
+    expect(result.valid).toBe(false);
+  });
 });
