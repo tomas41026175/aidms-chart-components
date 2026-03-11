@@ -6,7 +6,7 @@ import { validateSeriesData } from './validation/validate-series';
 import { toLineChartProps } from './transforms/to-line-props';
 import type { LineChartProps } from './types';
 
-export function LineChart(props: LineChartProps): React.ReactElement {
+export function LineChart(props: LineChartProps): JSX.Element {
   const { labels, datasets, height = 300, title, ...rest } = props;
 
   const isEmpty = datasets.length === 0 || datasets.every((d) => d.data.length === 0);

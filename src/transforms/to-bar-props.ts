@@ -36,14 +36,15 @@ export function toBarChartProps(props: BarChartProps): BarChartMuiProps {
   let yAxis: Array<Record<string, unknown>>;
 
   if (layout === 'horizontal') {
-    // horizontal: labels on yAxis (scaleType: 'band'), values on xAxis
-    xAxis = [{}];
-    const yAxisBase: Record<string, unknown> = { data: labels, scaleType: 'band' };
+    // horizontal: labels on yAxis (scaleType: 'band'), numeric values on xAxis
+    // yRange maps to xAxis (numeric axis), NOT yAxis (band scale ignores min/max)
+    const xAxisBase: Record<string, unknown> = {};
     if (yRange !== undefined) {
-      yAxisBase.min = yRange[0];
-      yAxisBase.max = yRange[1];
+      xAxisBase.min = yRange[0];
+      xAxisBase.max = yRange[1];
     }
-    yAxis = [yAxisBase];
+    xAxis = [xAxisBase];
+    yAxis = [{ data: labels, scaleType: 'band' }];
   } else {
     // vertical: labels on xAxis (scaleType: 'band' required by MUI BarChart)
     xAxis = [{ data: labels, scaleType: 'band' }];

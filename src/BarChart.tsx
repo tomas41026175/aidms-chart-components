@@ -6,7 +6,7 @@ import { validateSeriesData } from './validation/validate-series';
 import { toBarChartProps } from './transforms/to-bar-props';
 import type { BarChartProps } from './types';
 
-export function BarChart(props: BarChartProps): React.ReactElement {
+export function BarChart(props: BarChartProps): JSX.Element {
   const { labels, datasets, height = 300, title, ...rest } = props;
 
   const isEmpty = datasets.length === 0 || datasets.every((d) => d.data.length === 0);

@@ -3,7 +3,7 @@ import { Gauge } from '@mui/x-charts/Gauge';
 import type { GaugeChartProps } from './types';
 import { toGaugeProps } from './transforms/to-gauge-props';
 
-export function GaugeChart(props: GaugeChartProps): React.ReactElement {
+export function GaugeChart(props: GaugeChartProps): JSX.Element {
   const { value, min = 0, max = 100, height = 200, title, ...rest } = props;
 
   const muiProps = useMemo(
