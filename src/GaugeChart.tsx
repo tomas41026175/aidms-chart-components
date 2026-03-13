@@ -51,7 +51,7 @@ export function GaugeChart(props: GaugeChartProps): JSX.Element {
           startAngle={muiProps.startAngle}
           endAngle={muiProps.endAngle}
           text={muiProps.text}
-          {...(muiProps.sx !== undefined && { sx: muiProps.sx })}
+          sx={muiProps.sx}
         />
       )}
     </div>

@@ -13,7 +13,7 @@ interface GaugeMuiProps {
   startAngle: number;
   endAngle: number;
   text: (args: { value: number | null }) => string;
-  sx?: Record<string, unknown>;
+  sx: Record<string, unknown>;
   skipAnimation: boolean;
 }
 
@@ -21,9 +21,21 @@ function clamp(value: number, min: number, max: number): number {
   return Math.min(Math.max(value, min), max);
 }
 
-function buildSx(color: string): Record<string, unknown> {
+const TEXT_OFFSET: Record<'half' | 'full', string> = {
+  half: 'translate(0, 10px)',
+  full: 'translate(0, 0)',
+};
+
+function buildSx(color: string, arc: 'half' | 'full'): Record<string, unknown> {
   return {
     [`& .${gaugeClasses.valueArc}`]: { fill: color },
+    [`& .${gaugeClasses.valueText}`]: { transform: TEXT_OFFSET[arc] },
+  };
+}
+
+function buildTextSx(arc: 'half' | 'full'): Record<string, unknown> {
+  return {
+    [`& .${gaugeClasses.valueText}`]: { transform: TEXT_OFFSET[arc] },
   };
 }
 
@@ -43,12 +55,14 @@ export function toGaugeProps(props: GaugeChartProps): GaugeMuiProps {
   // Clamp value if not null
   const clampedValue = value !== null ? clamp(value, min, max) : null;
 
-  // Color resolution
+  // Color resolution + text offset
   let sx: Record<string, unknown> | undefined;
   if (clampedValue !== null && color !== undefined) {
     const resolvedColor =
       typeof color === 'function' ? color(clampedValue) : color;
-    sx = buildSx(resolvedColor);
+    sx = buildSx(resolvedColor, arc);
+  } else {
+    sx = buildTextSx(arc);
   }
 
   // Text function
@@ -65,7 +79,7 @@ export function toGaugeProps(props: GaugeChartProps): GaugeMuiProps {
     startAngle,
     endAngle,
     text,
-    ...(sx !== undefined && { sx }),
+    sx,
     skipAnimation: !animate,
   };
 }

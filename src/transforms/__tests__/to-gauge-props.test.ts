@@ -51,11 +51,11 @@ describe('toGaugeProps', () => {
       expect(colorFn).toHaveBeenCalledWith(73);
     });
 
-    it('color: fn + null value -> fn 不被呼叫，sx 為 undefined', () => {
+    it('color: fn + null value -> fn 不被呼叫，sx 只含 text offset', () => {
       const colorFn = vi.fn();
       const result = toGaugeProps({ value: null, color: colorFn });
       expect(colorFn).not.toHaveBeenCalled();
-      expect(result.sx).toBeUndefined();
+      expect(result.sx).not.toHaveProperty('& .MuiGauge-valueArc');
     });
   });
 
