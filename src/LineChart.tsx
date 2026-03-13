@@ -7,7 +7,8 @@ import { toLineChartProps } from './transforms/to-line-props';
 import type { LineChartProps } from './types';
 
 export function LineChart(props: LineChartProps): JSX.Element {
-  const { labels, datasets, height = 300, title, ...rest } = props;
+  const { labels, datasets, height = 300, title,
+          curve, fill, yRange, connectNulls, animate, slotProps } = props;
 
   const isEmpty = datasets.length === 0 || datasets.every((d) => d.data.length === 0);
 
@@ -18,9 +19,8 @@ export function LineChart(props: LineChartProps): JSX.Element {
 
   const muiProps = useMemo(() => {
     if (isEmpty || !validation.valid) return null;
-    return toLineChartProps({ labels, datasets, ...rest });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isEmpty, validation.valid, labels, datasets, rest.curve, rest.fill, rest.yRange, rest.connectNulls, rest.animate]);
+    return toLineChartProps({ labels, datasets, curve, fill, yRange, connectNulls, animate, slotProps });
+  }, [isEmpty, validation.valid, labels, datasets, curve, fill, yRange, connectNulls, animate, slotProps]);
 
   if (isEmpty) {
     return <ChartSkeleton height={height} title={title} />;

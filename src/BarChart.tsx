@@ -7,7 +7,8 @@ import { toBarChartProps } from './transforms/to-bar-props';
 import type { BarChartProps } from './types';
 
 export function BarChart(props: BarChartProps): JSX.Element {
-  const { labels, datasets, height = 300, title, ...rest } = props;
+  const { labels, datasets, height = 300, title,
+          layout, stacked, yRange, animate, slotProps: _slotProps } = props;
 
   const isEmpty = datasets.length === 0 || datasets.every((d) => d.data.length === 0);
 
@@ -18,9 +19,8 @@ export function BarChart(props: BarChartProps): JSX.Element {
 
   const muiProps = useMemo(() => {
     if (isEmpty || !validation.valid) return null;
-    return toBarChartProps({ labels, datasets, ...rest });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isEmpty, validation.valid, labels, datasets, rest.layout, rest.stacked, rest.yRange, rest.animate]);
+    return toBarChartProps({ labels, datasets, layout, stacked, yRange, animate });
+  }, [isEmpty, validation.valid, labels, datasets, layout, stacked, yRange, animate]);
 
   if (isEmpty) {
     return <ChartSkeleton height={height} title={title} />;
@@ -30,7 +30,7 @@ export function BarChart(props: BarChartProps): JSX.Element {
     return <ChartError reason={validation.reason} height={height} />;
   }
 
-  const isHorizontal = (rest.layout ?? 'vertical') === 'horizontal';
+  const isHorizontal = (layout ?? 'vertical') === 'horizontal';
 
   return (
     <div role="img" aria-label={title ?? 'Bar chart'}>
