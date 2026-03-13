@@ -4,12 +4,12 @@ import type { GaugeChartProps } from './types';
 import { toGaugeProps } from './transforms/to-gauge-props';
 
 export function GaugeChart(props: GaugeChartProps): JSX.Element {
-  const { value, min = 0, max = 100, height = 200, width, title, ...rest } = props;
+  const { value, min = 0, max = 100, height = 200, width, title,
+          arc, color, formatValue, animate, slotProps: _slotProps } = props;
 
   const muiProps = useMemo(
-    () => toGaugeProps({ value, min, max, ...rest }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [value, min, max, rest.arc, rest.color, rest.formatValue, rest.animate]
+    () => toGaugeProps({ value, min, max, arc, color, formatValue, animate }),
+    [value, min, max, arc, color, formatValue, animate]
   );
 
   const clampedValue = muiProps.value;
