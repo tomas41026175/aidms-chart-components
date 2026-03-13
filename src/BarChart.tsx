@@ -30,8 +30,15 @@ export function BarChart(props: BarChartProps): JSX.Element {
     return <ChartError reason={validation.reason} height={height} />;
   }
 
+  const isHorizontal = (rest.layout ?? 'vertical') === 'horizontal';
+
   return (
     <div role="img" aria-label={title ?? 'Bar chart'}>
+      {title && (
+        <div style={{ fontSize: 16, fontWeight: 600, marginBottom: 8, opacity: 0.85 }}>
+          {title}
+        </div>
+      )}
       <MuiBarChart
         height={height}
         series={muiProps!.series}
@@ -39,6 +46,7 @@ export function BarChart(props: BarChartProps): JSX.Element {
         yAxis={muiProps!.yAxis}
         layout={muiProps!.layout}
         skipAnimation={muiProps!.skipAnimation}
+        margin={isHorizontal ? { left: 100 } : undefined}
       />
     </div>
   );

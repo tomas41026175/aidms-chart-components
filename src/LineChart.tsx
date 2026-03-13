@@ -32,6 +32,11 @@ export function LineChart(props: LineChartProps): JSX.Element {
 
   return (
     <div role="img" aria-label={title ?? 'Line chart'}>
+      {title && (
+        <div style={{ fontSize: 16, fontWeight: 600, marginBottom: 8, opacity: 0.85 }}>
+          {title}
+        </div>
+      )}
       <MuiLineChart
         height={height}
         series={muiProps!.series}

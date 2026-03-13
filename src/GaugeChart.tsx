@@ -4,7 +4,7 @@ import type { GaugeChartProps } from './types';
 import { toGaugeProps } from './transforms/to-gauge-props';
 
 export function GaugeChart(props: GaugeChartProps): JSX.Element {
-  const { value, min = 0, max = 100, height = 200, title, ...rest } = props;
+  const { value, min = 0, max = 100, height = 200, width, title, ...rest } = props;
 
   const muiProps = useMemo(
     () => toGaugeProps({ value, min, max, ...rest }),
@@ -22,6 +22,11 @@ export function GaugeChart(props: GaugeChartProps): JSX.Element {
       aria-valuemin={min}
       aria-valuemax={max}
     >
+      {title && (
+        <div style={{ fontSize: 16, fontWeight: 600, marginBottom: 8, opacity: 0.85, textAlign: 'center' }}>
+          {title}
+        </div>
+      )}
       {clampedValue === null ? (
         <div
           style={{
@@ -29,6 +34,7 @@ export function GaugeChart(props: GaugeChartProps): JSX.Element {
             alignItems: 'center',
             justifyContent: 'center',
             height,
+            width: width ?? height,
             fontSize: '1.5rem',
             color: 'inherit',
           }}
@@ -38,6 +44,7 @@ export function GaugeChart(props: GaugeChartProps): JSX.Element {
       ) : (
         <Gauge
           height={height}
+          width={width ?? height}
           value={clampedValue}
           valueMin={muiProps.valueMin}
           valueMax={muiProps.valueMax}

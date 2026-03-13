@@ -39,6 +39,7 @@ export interface BarChartProps extends ChartBaseProps {
 
 export interface GaugeChartProps extends ChartBaseProps {
   value: number | null;
+  width?: number;
   min?: number;
   max?: number;
   label?: string;
